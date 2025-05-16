@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project List</title>
+  <style>
+    body {
+      background-color: #0f172a;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+
+    .navbar {
+      background-color: #112240;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+    }
+
+    .navbar a {
+      color: #64FFDA;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .navbar a:hover {
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .project-card {
+      background: #1e293b;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 0 10px #00f5ff;
+    }
+
+    .project-card img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .project-title {
+      font-size: 20px;
+      color: #38bdf8;
+      margin-bottom: 5px;
+    }
+
+    .rating span {
+      font-size: 20px;
+      cursor: pointer;
+      color: gray;
+    }
+
+    .rating span.checked {
+      color: gold;
+    }
+
+    .comment-box {
+      margin-top: 10px;
+    }
+
+    .comment-box textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      background: #334155;
+      color: white;
+      resize: none;
+    }
+
+    .comment-box button {
+      margin-top: 5px;
+      background: #38bdf8;
+      color: black;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .old-comments {
+      margin-top: 10px;
+      background: #475569;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .old-comments p {
+      margin: 5px 0;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 15px;
+      background-color: #10b981;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    .download-btn:hover {
+      background-color: #059669;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pu.html">Upload Project</a>
+    <a href="files.html">Project List</a>
+  </div>
+
+  <h1>All Uploaded Projects</h1>
+  <div id="projectList"></div>
+
+  <script>
+    const listDiv = document.getElementById("projectList");
+    let projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+    projects.forEach((proj, index) => {
+      const card = document.createElement("div");
+      card.className = "project-card";
+
+      // Default rating
+      if (proj.rating === undefined) proj.rating = 0;
+
+      card.innerHTML = `
+        <div class="project-title">${proj.name}</div>
+        <strong>By:</strong> ${proj.user}<br>
+        <p>${proj.use}</p>
+        <img src="${proj.fileData}" alt="Project Image">
+        <br>
+        <a href="${proj.fileData}" download class="download-btn">Download</a>
+
+        <div class="rating" id="rate-${index}">
+          Rate:
+          ${[1,2,3,4,5].map(num => `
+            <span class="${num <= proj.rating ? 'checked' : ''}" onclick="rate(${index}, ${num})">★</span>
+          `).join('')}
+        </div>
+
+        <div class="comment-box">
+          <textarea rows="2" placeholder="Write your comment..." id="comment-${index}"></textarea>
+          <button onclick="saveComment(${index})">Send</button>
+        </div>
+
+        <div class="old-comments" id="comments-${index}">
+          ${proj.comments && proj.comments.length > 0 ? proj.comments.map(c => `<p>${c}</p>`).join('') : '<em>No comments yet</em>'}
+        </div>
+      `;
+
+      listDiv.appendChild(card);
+    });
+
+    function saveComment(index) {
+      const commentText = document.getElementById(`comment-${index}`).value;
+      if (!commentText) return;
+
+      let allProjects = JSON.parse(localStorage.getItem("projects"));
+      allProjects[index].comments = allProjects[index].comments || [];
+      allProjects[index].comments.push(commentText);
+
+      localStorage.setItem("projects", JSON.stringify(allProjects));
+      location.reload(); // Refresh to show comment
+    }
+
+    function rate(index, value) {
+      let allProjects = JSON.parse(localStorage.getItem("projects"));
+      allProjects[index].rating = value;
+      localStorage.setItem("projects", JSON.stringify(allProjects));
+      location.reload(); // Show updated rating
+    }
+  </script>
+</body>
+</html>

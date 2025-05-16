@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Project | TR Science</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0A192F;
+      color: #CCD6F6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: #112240;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+    }
+
+    .navbar a {
+      color: #64FFDA;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .navbar a:hover {
+      color: white;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 30px auto;
+      background-color: #112240;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #64FFDA55;
+    }
+
+    h2 {
+      text-align: center;
+      color: #64FFDA;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 95%;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 5px;
+      border: 1px solid #64FFDA;
+      background-color: #0A192F;
+      color: white;
+    }
+
+    input[type="file"] {
+      background-color: transparent;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #64FFDA;
+      color: #0A192F;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #52e0c4;
+    }
+
+    .success {
+      color: #00FF99;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pu.html">Upload Project</a>
+    <a href="files.html">Project List</a>
+  </div>
+
+  <div class="container">
+    <h2>Upload Your Project</h2>
+    <label>Your Name:</label>
+    <input type="text" id="userName" placeholder="Your name..." required />
+
+    <label>Project Name:</label>
+    <input type="text" id="projectName" placeholder="Project title..." required />
+
+    <label>Project Use:</label>
+    <textarea id="projectUse" rows="3" placeholder="How it works..." required></textarea>
+
+    <label>Upload Diagram/Image (optional):</label>
+    <input type="file" id="fileUpload" accept="image/*">
+
+    <button onclick="uploadProject()">Upload Project</button>
+    <div class="success" id="successMsg"></div>
+  </div>
+
+  <script>
+    const userKey = localStorage.getItem("userId") || (Date.now() + Math.random()).toString();
+    localStorage.setItem("userId", userKey);
+
+    function uploadProject() {
+      const userName = document.getElementById("userName").value.trim();
+      const projectName = document.getElementById("projectName").value.trim();
+      const projectUse = document.getElementById("projectUse").value.trim();
+      const fileInput = document.getElementById("fileUpload");
+      const successMsg = document.getElementById("successMsg");
+
+      if (!userName || !projectName || !projectUse) {
+        alert("Please fill all required fields.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const fileData = fileInput.files[0] ? reader.result : null;
+
+        const newProject = {
+          userName,
+          projectName,
+          projectUse,
+          fileData,
+          owner: userKey,
+          comments: []
+        };
+
+        const allProjects = JSON.parse(localStorage.getItem("projects") || "[]");
+        allProjects.unshift(newProject);
+        localStorage.setItem("projects", JSON.stringify(allProjects));
+
+        document.getElementById("userName").value = "";
+        document.getElementById("projectName").value = "";
+        document.getElementById("projectUse").value = "";
+        document.getElementById("fileUpload").value = "";
+        successMsg.innerText = "Project uploaded successfully!";
+      };
+
+      if (fileInput.files[0]) {
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        reader.onload();
+      }
+    }
+  </script>
+
+</body>
+</html>

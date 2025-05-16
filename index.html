@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TR Science Work</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #0A192F;
+    color: #0DF6FF;
+    font-family: 'Segoe UI', sans-serif;
+    background-image: url('background.png'); /* अपना electronics PNG यहीं सेट करना */
+    background-size: cover;
+    background-position: center;
+  }
+
+    /* Navbar */
+    .navbar {
+      background-color: #112240;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 15px 0;
+    }
+    
+    .navbar a {
+      display: block;
+      margin: 8px 0;
+      color: #4fffd9;
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    
+    .navbar a:hover {
+      color: #ffffff;
+    }
+
+  .content {
+    text-align: center;
+    margin-top: 100px;
+  }
+
+  .content h1 {
+    font-size: 40px;
+  }
+.animated-text {
+  font-size: 2rem;
+  color: #64FFDA;
+  text-align: center;
+  margin-top: 20px;
+  text-shadow: 0 0 10px #64FFDA, 0 0 20px #64FFDA;
+  animation: glowFade 2s ease-in-out infinite alternate;
+  transition: all 0.5s ease;
+}
+
+@keyframes glowFade {
+  from {
+    text-shadow: 0 0 5px #64FFDA, 0 0 10px #64FFDA;
+  }
+  to {
+    text-shadow: 0 0 20px #64FFDA, 0 0 40px #64FFDA;
+  }
+}
+
+
+
+</style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="project.html">project</a>
+    <a href="files.html">pro list</a>
+    <a href="pdf.html">PDF</a>
+  </div>
+
+  <div class="content">
+    <h1>Welcome to TR Science</h1>
+   
+  </div>
+  <h2 class="animated-text" id="changingText">DIY Creations</h2>
+
+<script>
+function navigateTo(filename) {
+  window.location.href = filename;
+}
+  const textArray = ["DIY Creations", "Innovative Projects", "Science in Action", "Smart  electronic project", " free PDF " , " make the electronic project with diagram " ];
+  let index = 0;
+
+  setInterval(() => {
+    index = (index + 1) % textArray.length;
+    document.getElementById("changingText").textContent = textArray[index];
+  }, 1400); // हर 3 सेकंड में text बदलेगा
+</script>
+
+<!-- Custom Icon Footer -->
+<footer style="text-align: center; padding: 5px; background: #112240; margin-top: 400px;">
+  <a href="https://facebook.com" target="_blank" style="margin: 0 15px;">
+    <img src="Files/facebook.png" alt="" style="width: 32px; height: 32px;">
+  </a>
+  <a href="https://wa.me/919999999999" target="_blank" style="margin: 0 15px;">
+    <img src="Files/whatsapp.png" alt="" style="width: 32px; height: 32px;">
+  </a>
+  <a href="https://instagram.com" target="_blank" style="margin: 0 15px;">
+    <img src="Files/instagram.png" alt="" style="width: 32px; height: 32px;">
+  </a>
+  <a href="https://youtube.com" target="_blank" style="margin: 0 15px;">
+    <img src="Files/youtube.png" alt="" style="width: 32px; height: 32px;">
+  </a>
+</footer>
+
+</body>
+</html>

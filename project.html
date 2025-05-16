@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Work Detail | TR Science</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #081a2d;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+    }
+
+       .navbar {
+     background-color: #112240;
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+     padding: 15px 0;
+   }
+   
+   .navbar a  {
+      display: block;
+      margin: 8px 0;
+      color: #4fffd9;
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    /* Section Style */
+    .section {
+  max-width: 900px;
+  margin: 100px auto;
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 0 20px #64FFDA44;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+    .section img {
+      width: 80%;
+      max-width: 280px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #00ffff30;
+      margin-bottom: 10px;
+    }
+
+    .section h2 {color: #64FFDA;
+      margin-bottom: 20px;}
+
+    .section p {
+      font-size: 14px;
+      line-height: 2;
+      
+    }
+      .se img {
+    width: 80%;
+    max-width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #00ffff30;
+    margin-bottom: 10px;
+  }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="project.html">project</a>
+    <a href="files.html">pro list</a>
+    <a href="pdf.html">PDF</a>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <img src="Files/download.jpeg" alt="Work 1">
+    <h2>this wedsite </h2>
+    <p>
+      यह पहला वर्क सेक्षन है जिसमें हम बताएँगे कि ये प्रोजेक्ट कैसे बनाया गया। इसमें HTML, CSS और JavaScript का उपयोग हुआ है।
+    </p>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <img src="work2.jpg" alt="Work 2">
+    <h2> coming soob</h2>
+    <p>
+     yaha project special hai
+    </p>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <img src="Files/download (1).webp" alt="Work 3">
+    <h2> smart calculator </h2>
+    <p>
+      तीसरे प्रोजेक्ट में हमने एक smart calculator बनाया है जिसमें stylish UI, history system और explain फीचर भी शामिल है।
+    </p>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section">
+    <img src="Files/download (6).jpeg" alt="Work 4">
+    <h2>countdown</h2>
+    <p>
+      यह section एक countdown timer के लिए है जिसमें user custom time set कर सकता है और समय खत्म होने पर sound बजता है।
+    </p>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section">
+    <img src="Files/j.jpg" alt="Work 5">
+    <h2> voice command board</h2>
+    <p>
+     ___< Components >___<br>
+
+1. Arduino Uno
+
+<br>
+2. 4-Channel Relay Module
+<br>
+
+3. HC-05 Bluetooth Module
+<br>
+
+4. Mobile with Voice Assistant App (e.g. Google Assistant + IFTTT + Arduino Bluetooth Controller)
+
+<br>
+5. Jumper Wires
+<br>
+6. 230V AC Bulb & Fan
+<br>
+7. Power Supply for Arduino
+<br>
+8. Breadboard (optional)
+<br>
+
+
+
+
+---<<<(Step by Step Process:)>>>---
+<br>
+1. Wiring Diagram Overview:
+
+Arduino को Relay से कनेक्ट करो (D2, D3, D4, D5 to IN1, IN2, IN3, IN4)
+
+HC-05 Bluetooth: TX to Arduino RX, RX to Arduino TX
+
+Relay का NO और COM को AC Switch Line से जोड़ो
+
+Bulb या Fan का एक Terminal Relay से, दूसरा Neutral से
+
+Arduino को Power दो (5V)
+
+
+<br><br>
+
+
+---
+
+2. Arduino Code:
+<br>
+
+char data = 0;<br>
+void setup()<br> {
+  Serial.begin(9600);
+  <br>
+  pinMode(2, OUTPUT);  // Relay 1
+  <br>
+  pinMode(3, OUTPUT);  // Relay 2
+  <br>
+  pinMode(4, OUTPUT);  // Relay 3
+  <br>
+  pinMode(5, OUTPUT);  // Relay 4
+}
+<br>
+void loop() {
+<br>
+  if (Serial.available()) {<br>
+    data = Serial.read();
+    <br>
+    if (data == 'A') digitalWrite(2, HIGH);  // Light ON<br>
+    if (data == 'a') digitalWrite(2, LOW);   // Light OFF<br>
+    if (data == 'B') digitalWrite(3, HIGH);  // Fan ON<br>
+    if (data == 'b') digitalWrite(3, LOW);   // Fan OFF
+  }<br>
+}
+
+<br><br>
+
+
+---
+
+3. Bluetooth Configuration:
+
+HC-05 को मोबाइल के साथ पेयर करो
+
+कोई Bluetooth Terminal App (जैसे Arduino Bluetooth Controller) इंस्टॉल करो
+
+
+<br><br>
+
+
+---
+
+4. Voice Assistant + IFTTT Setup:
+
+IFTTT ऐप डाउनलोड करो
+
+नया Applet बनाओ:
+
+If This: Google Assistant → Say "Turn on light"
+
+Then That: → Android SMS या Webhook → HC-05 को 'A' भेजो
+
+
+
+<br><br>
+
+
+---
+
+5. Safety Notes:
+
+Relay को AC पर संभालकर लगाओ
+
+Arduino को USB से Power देना ही बेहतर रहेगा
+
+Insulation और Relay Module को Box में रखो
+
+
+
+
+    </p>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section">
+    <img src="Files/c.jpg" alt="Work 6">
+    <h2> switch board   </h2>
+    <p>
+     
+     How to make switch board 
+<div class="se">
+  <img src="Files/b.jpg" alt="Work 6">
+  </div>
+  
+ (1) 2  bulbs 
+  <br><br>
+ (2) 4 singles buttons
+ <br><br>
+ (3) fan regulator
+ <br><br>
+ (4) fuse
+ <br><br>
+ (5) 6A socket and 32A socket
+ <br><br>
+ (6) indicator
+ <br><br>
+ (7) double point switch
+ <br><br>
+( black negative) (red positive) (green ground)
+</p>
+
+  </div>
+
+</body>
+</html>
